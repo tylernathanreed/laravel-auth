@@ -2,6 +2,8 @@
 
 namespace Reed\Auth\Support\Facades;
 
+use Illuminate\Support\Facades\Facade;
+
 /**
  * @see \Reed\Auth\AuthManager
  * @see \Reed\Auth\Contracts\Factory
@@ -17,6 +19,6 @@ class Auth extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'reed.auth';
+        return 'auth';
     }
 }

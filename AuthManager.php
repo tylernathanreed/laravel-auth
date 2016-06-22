@@ -4,7 +4,7 @@ namespace Reed\Auth;
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Contracts\Auth\Factory as FactoryContract;
+use Reed\Auth\Contracts\Factory as FactoryContract;
 
 class AuthManager implements FactoryContract
 {
