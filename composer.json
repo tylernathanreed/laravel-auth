@@ -1,0 +1,29 @@
+{
+    "name": "reed/auth",
+    "description": "Multi-Auth for Laravel 5.1.",
+    "license": "MIT",
+    "homepage": "http://tylernathanreed.com",
+    "support": {
+        "issues": "https://github.com/tylernathanreed/laravel-auth/issues",
+        "source": "https://github.com/tylernathanreed/laravel-auth"
+    },
+    "authors": [
+        {
+            "name": "Tyler Reed",
+            "email": "tylernathanreed@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/contracts": "5.2.*",
+        "illuminate/http": "5.2.*",
+        "illuminate/support": "5.2.*",
+        "nesbot/carbon": "~1.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reed\\Auth\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
