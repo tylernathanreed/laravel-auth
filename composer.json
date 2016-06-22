@@ -1,6 +1,7 @@
 {
     "name": "reed/auth",
     "description": "Multi-Auth for Laravel 5.1.",
+    "keywords": ["auth", "laravel", "multi-auth"],
     "license": "MIT",
     "homepage": "http://tylernathanreed.com",
     "support": {
@@ -15,14 +16,19 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "illuminate/contracts": "5.2.*",
-        "illuminate/http": "5.2.*",
-        "illuminate/support": "5.2.*",
+        "illuminate/contracts": "5.1.*",
+        "illuminate/http": "5.1.*",
+        "illuminate/support": "5.1.*",
         "nesbot/carbon": "~1.20"
     },
     "autoload": {
         "psr-4": {
             "Reed\\Auth\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
         }
     }
 }
