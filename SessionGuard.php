@@ -5,14 +5,14 @@ namespace Reed\Auth;
 use RuntimeException;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Reed\Auth\Contracts\StatefulGuard;
+use Reed\Auth\Contracts\SupportsBasicAuth;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Contracts\Auth\StatefulGuard;
 use Symfony\Component\HttpFoundation\Request;
-use Illuminate\Contracts\Auth\SupportsBasicAuth;
 use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Reed\Auth\Contracts\Authenticatable as AuthenticatableContract;
 
 class SessionGuard implements StatefulGuard, SupportsBasicAuth
 {
@@ -30,7 +30,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * The user we last attempted to retrieve.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var \Reed\Auth\Contracts\Authenticatable
      */
     protected $lastAttempted;
 
@@ -106,7 +106,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function user()
     {
@@ -405,7 +405,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Fire the failed authentication attempt event with the given arguments.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable|null  $user
      * @param  array  $credentials
      * @return void
      */
@@ -432,7 +432,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Log a user into the application.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  bool  $remember
      * @return void
      */
@@ -460,7 +460,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Fire the login event if the dispatcher is set.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  bool  $remember
      * @return void
      */
@@ -489,7 +489,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      *
      * @param  mixed  $id
      * @param  bool   $remember
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Reed\Auth\Contracts\Authenticatable
      */
     public function loginUsingId($id, $remember = false)
     {
@@ -526,7 +526,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Queue the recaller cookie into the cookie jar.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @return void
      */
     protected function queueRecallerCookie(AuthenticatableContract $user)
@@ -596,7 +596,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Refresh the "remember me" token for the user.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @return void
      */
     protected function refreshRememberToken(AuthenticatableContract $user)
@@ -609,7 +609,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Create a new "remember me" token for the user if one doesn't already exist.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @return void
      */
     protected function createRememberTokenIfDoesntExist(AuthenticatableContract $user)
@@ -701,7 +701,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Return the currently cached user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function getUser()
     {
@@ -711,7 +711,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Set the current user.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @return $this
      */
     public function setUser(AuthenticatableContract $user)
@@ -749,7 +749,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Get the last user we attempted to authenticate.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Reed\Auth\Contracts\Authenticatable
      */
     public function getLastAttempted()
     {

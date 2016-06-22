@@ -32,17 +32,17 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerAuthenticator()
     {
-        $this->app->singleton('reed.auth', function ($app) {
+        $this->app->singleton('auth', function ($app) {
             // Once the authentication service has actually been requested by the developer
             // we will set a variable in the application indicating such. This helps us
             // know that we need to set any queued cookies in the after event later.
-            $app['reed.auth.loaded'] = true;
+            $app['auth.loaded'] = true;
 
             return new AuthManager($app);
         });
 
-        $this->app->singleton('reed.auth.driver', function ($app) {
-            return $app['reed.auth']->guard();
+        $this->app->singleton('auth.driver', function ($app) {
+            return $app['auth']->guard();
         });
     }
 
@@ -55,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             AuthenticatableContract::class, function ($app) {
-                return call_user_func($app['reed.auth']->userResolver());
+                return call_user_func($app['auth']->userResolver());
             }
         );
     }
@@ -69,7 +69,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->singleton(GateContract::class, function ($app) {
             return new Gate($app, function () use ($app) {
-                return call_user_func($app['reed.auth']->userResolver());
+                return call_user_func($app['auth']->userResolver());
             });
         });
     }
@@ -83,7 +83,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->rebinding('request', function ($app, $request) {
             $request->setUserResolver(function ($guard = null) use ($app) {
-                return call_user_func($app['reed.auth']->userResolver(), $guard);
+                return call_user_func($app['auth']->userResolver(), $guard);
             });
         });
     }
