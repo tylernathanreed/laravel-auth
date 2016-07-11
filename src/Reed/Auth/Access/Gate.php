@@ -5,7 +5,7 @@ namespace Reed\Auth\Access;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Reed\Auth\Contracts\Access\Gate as GateContract;
 
 class Gate implements GateContract
 {
@@ -253,7 +253,7 @@ class Gate implements GateContract
     /**
      * Resolve and call the appropriate authorization callback.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $ability
      * @param  array  $arguments
      * @return bool
@@ -272,7 +272,7 @@ class Gate implements GateContract
     /**
      * Call all of the before callbacks and return if a result is given.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $ability
      * @param  array  $arguments
      * @return bool|null
@@ -291,7 +291,7 @@ class Gate implements GateContract
     /**
      * Call all of the after callbacks with check result.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $ability
      * @param  array  $arguments
      * @param  bool  $result
@@ -309,7 +309,7 @@ class Gate implements GateContract
     /**
      * Resolve the callable for the given ability and arguments.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $ability
      * @param  array  $arguments
      * @return callable
@@ -349,7 +349,7 @@ class Gate implements GateContract
     /**
      * Resolve the callback for a policy check.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $ability
      * @param  array  $arguments
      * @return callable
@@ -426,7 +426,7 @@ class Gate implements GateContract
     /**
      * Get a guard instance for the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|mixed  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable|mixed  $user
      * @return static
      */
     public function forUser($user)
