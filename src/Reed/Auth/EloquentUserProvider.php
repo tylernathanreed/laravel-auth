@@ -40,7 +40,7 @@ class EloquentUserProvider implements UserProvider
      * Retrieve a user by their unique identifier.
      *
      * @param  mixed  $identifier
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveById($identifier)
     {
@@ -52,7 +52,7 @@ class EloquentUserProvider implements UserProvider
      *
      * @param  mixed  $identifier
      * @param  string  $token
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveByToken($identifier, $token)
     {
@@ -67,7 +67,7 @@ class EloquentUserProvider implements UserProvider
     /**
      * Update the "remember me" token for the given user in storage.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $token
      * @return void
      */
@@ -82,7 +82,7 @@ class EloquentUserProvider implements UserProvider
      * Retrieve a user by the given credentials.
      *
      * @param  array  $credentials
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {
@@ -107,7 +107,7 @@ class EloquentUserProvider implements UserProvider
     /**
      * Validate a user against the given credentials.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  array  $credentials
      * @return bool
      */

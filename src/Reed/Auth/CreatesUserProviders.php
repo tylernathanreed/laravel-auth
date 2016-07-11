@@ -17,7 +17,8 @@ trait CreatesUserProviders
      * Create the user provider implementation for the driver.
      *
      * @param  string  $provider
-     * @return \Illuminate\Contracts\Auth\UserProvider
+     *
+     * @return \Reed\Contracts\Auth\UserProvider
      *
      * @throws \InvalidArgumentException
      */
@@ -45,7 +46,8 @@ trait CreatesUserProviders
      * Create an instance of the database user provider.
      *
      * @param  array  $config
-     * @return \Illuminate\Auth\DatabaseUserProvider
+     *
+     * @return \Reed\Auth\DatabaseUserProvider
      */
     protected function createDatabaseProvider($config)
     {
@@ -58,7 +60,8 @@ trait CreatesUserProviders
      * Create an instance of the Eloquent user provider.
      *
      * @param  array  $config
-     * @return \Illuminate\Auth\EloquentUserProvider
+     *
+     * @return \Reed\Auth\EloquentUserProvider
      */
     protected function createEloquentProvider($config)
     {

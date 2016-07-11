@@ -8,6 +8,7 @@ interface UserProvider
      * Retrieve a user by their unique identifier.
      *
      * @param  mixed  $identifier
+     *
      * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveById($identifier);
@@ -17,6 +18,7 @@ interface UserProvider
      *
      * @param  mixed   $identifier
      * @param  string  $token
+     *
      * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveByToken($identifier, $token);
@@ -26,6 +28,7 @@ interface UserProvider
      *
      * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  string  $token
+     *
      * @return void
      */
     public function updateRememberToken(Authenticatable $user, $token);
@@ -34,6 +37,7 @@ interface UserProvider
      * Retrieve a user by the given credentials.
      *
      * @param  array  $credentials
+     *
      * @return \Reed\Auth\Contracts\Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials);
@@ -43,6 +47,7 @@ interface UserProvider
      *
      * @param  \Reed\Auth\Contracts\Authenticatable  $user
      * @param  array  $credentials
+     *
      * @return bool
      */
     public function validateCredentials(Authenticatable $user, array $credentials);
