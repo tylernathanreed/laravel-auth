@@ -72,6 +72,8 @@ class AuthServiceProvider extends ServiceProvider
                 return call_user_func($app['auth']->userResolver());
             });
         });
+
+        $this->app->alias(GateContract::class, 'Illuminate\Contracts\Auth\Access\Gate');
     }
 
     /**
