@@ -65,6 +65,7 @@ trait CreatesUserProviders
      */
     protected function createEloquentProvider($config)
     {
+        dd('tset');
         return new EloquentUserProvider($this->app['hash'], $config['model']);
     }
 }
