@@ -3,9 +3,9 @@
 namespace Reed\Auth;
 
 use Illuminate\Support\Str;
-use Illuminate\Contracts\Auth\UserProvider;
+use Reed\Auth\Contracts\UserProvider;
+use Reed\Auth\Contracts\Authenticatable as UserContract;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
-use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
 class EloquentUserProvider implements UserProvider
 {
