@@ -4,8 +4,8 @@ namespace Reed\Auth;
 
 use Reed\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Reed\Auth\Contracts\Access\Gate as GateContract;
+use Reed\Auth\Contracts\Authenticatable as AuthenticatableContract;
 
 class AuthServiceProvider extends ServiceProvider
 {
