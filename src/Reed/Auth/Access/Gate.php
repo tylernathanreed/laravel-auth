@@ -392,6 +392,23 @@ class Gate implements GateContract
     }
 
     /**
+     * Returns whether or not a Policy Instance exists for the specified Class.
+     *
+     * @param  object|string  $class  The specified Class, or an Object.
+     *
+     * @return boolean
+     */
+    public function hasPolicyFor($class)
+    {
+        // Convert Objects to Class Names
+        if(is_object($class))
+            $class = get_class($class);
+
+        // Return whether or not the Policy Instance exists
+        return isset($this->policies[$class]);
+    }
+
+    /**
      * Get a policy instance for a given class.
      *
      * @param  object|string  $class
@@ -401,13 +418,9 @@ class Gate implements GateContract
      */
     public function getPolicyFor($class)
     {
-        if (is_object($class)) {
-            $class = get_class($class);
-        }
-
-        if (! isset($this->policies[$class])) {
+        // Make sure the Policy Instance Exists
+        if(!$this->hasPolicyFor($class))
             throw new InvalidArgumentException("Policy not defined for [{$class}].");
-        }
 
         return $this->resolvePolicy($this->policies[$class]);
     }
