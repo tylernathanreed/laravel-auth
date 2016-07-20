@@ -422,6 +422,10 @@ class Gate implements GateContract
         if(!$this->hasPolicyFor($class))
             throw new InvalidArgumentException("Policy not defined for [{$class}].");
 
+        // Convert Objects to Class Names
+        if(is_object($class))
+            $class = get_class($class);
+
         return $this->resolvePolicy($this->policies[$class]);
     }
 
