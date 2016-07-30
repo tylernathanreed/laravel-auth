@@ -1,3 +1,6 @@
+[![Latest Stable Version](https://poser.pugx.org/reed/auth/version.png)](https://packagist.org/packages/reed/auth)
+[![Total Downloads](https://poser.pugx.org/reed/auth/d/total.png)](https://packagist.org/packages/reed/auth)
+
 # Multi-Auth for Laravel 5.1
 
 This is a mostly drop-in replacement for Laravel 5.2's Multi-Auth for Laravel 5.1.
