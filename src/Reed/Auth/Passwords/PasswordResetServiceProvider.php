@@ -30,12 +30,12 @@ class PasswordResetServiceProvider extends ServiceProvider
      */
     protected function registerPasswordBroker()
     {
-        $this->app->singleton('reed.auth.password', function ($app) {
+        $this->app->singleton('auth.password', function ($app) {
             return new PasswordBrokerManager($app);
         });
 
-        $this->app->bind('reed.auth.password.broker', function ($app) {
-            return $app->make('reed.auth.password')->broker();
+        $this->app->bind('auth.password.broker', function ($app) {
+            return $app->make('auth.password')->broker();
         });
     }
 
@@ -46,6 +46,6 @@ class PasswordResetServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['reed.auth.password', 'reed.auth.password.broker'];
+        return ['auth.password', 'auth.password.broker'];
     }
 }
