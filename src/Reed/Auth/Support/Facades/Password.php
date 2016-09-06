@@ -2,6 +2,8 @@
 
 namespace Reed\Auth\Support\Facades;
 
+use Illuminate\Support\Facades\Facade;
+
 /**
  * @see \Illuminate\Auth\Passwords\PasswordBroker
  */
