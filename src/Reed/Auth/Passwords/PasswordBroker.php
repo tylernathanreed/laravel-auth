@@ -8,7 +8,7 @@ use UnexpectedValueException;
 use Reed\Auth\Contracts\UserProvider;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 use Reed\Auth\Contracts\PasswordBroker as PasswordBrokerContract;
-use Reed\Auth\Contracts\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class PasswordBroker implements PasswordBrokerContract
 {
@@ -51,9 +51,10 @@ class PasswordBroker implements PasswordBrokerContract
      * Create a new password broker instance.
      *
      * @param  \Reed\Auth\Passwords\TokenRepositoryInterface  $tokens
-     * @param  \Reed\Auth\Contracts\UserProvider  $users
-     * @param  \Illuminate\Contracts\Mail\Mailer  $mailer
-     * @param  string  $emailView
+     * @param  \Reed\Auth\Contracts\UserProvider              $users
+     * @param  \Illuminate\Contracts\Mail\Mailer              $mailer
+     * @param  string                                         $emailView
+     *
      * @return void
      */
     public function __construct(TokenRepositoryInterface $tokens,
@@ -61,17 +62,18 @@ class PasswordBroker implements PasswordBrokerContract
                                 MailerContract $mailer,
                                 $emailView)
     {
-        $this->users = $users;
-        $this->mailer = $mailer;
-        $this->tokens = $tokens;
+        $this->users     = $users;
+        $this->mailer    = $mailer;
+        $this->tokens    = $tokens;
         $this->emailView = $emailView;
     }
 
     /**
      * Send a password reset link to a user.
      *
-     * @param  array  $credentials
+     * @param  array          $credentials
      * @param  \Closure|null  $callback
+     *
      * @return string
      */
     public function sendResetLink(array $credentials, Closure $callback = null)
@@ -98,9 +100,10 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Send the password reset link via e-mail.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
-     * @param  string  $token
-     * @param  \Closure|null  $callback
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string                                       $token
+     * @param  \Closure|null                                $callback
+     *
      * @return int
      */
     public function emailResetLink(CanResetPasswordContract $user, $token, Closure $callback = null)
@@ -122,8 +125,9 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Reset the password for the given token.
      *
-     * @param  array  $credentials
+     * @param  array     $credentials
      * @param  \Closure  $callback
+     *
      * @return mixed
      */
     public function reset(array $credentials, Closure $callback)
@@ -153,7 +157,8 @@ class PasswordBroker implements PasswordBrokerContract
      * Validate a password reset for the given credentials.
      *
      * @param  array  $credentials
-     * @return \Reed\Auth\Contracts\CanResetPassword
+     *
+     * @return \Illuminate\Contracts\Auth\CanResetPassword
      */
     protected function validateReset(array $credentials)
     {
@@ -176,6 +181,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Set a custom password validator.
      *
      * @param  \Closure  $callback
+     *
      * @return void
      */
     public function validator(Closure $callback)
@@ -187,6 +193,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Determine if the passwords match for the request.
      *
      * @param  array  $credentials
+     *
      * @return bool
      */
     public function validateNewPassword(array $credentials)
@@ -208,6 +215,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Determine if the passwords are valid for the request.
      *
      * @param  array  $credentials
+     *
      * @return bool
      */
     protected function validatePasswordWithDefaults(array $credentials)
@@ -224,7 +232,8 @@ class PasswordBroker implements PasswordBrokerContract
      * Get the user for the given credentials.
      *
      * @param  array  $credentials
-     * @return \Reed\Auth\Contracts\CanResetPassword
+     *
+     * @return \Illuminate\Contracts\Auth\CanResetPassword
      *
      * @throws \UnexpectedValueException
      */
@@ -244,7 +253,8 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Create a new password reset token for the given user.
      *
-     * @param  CanResetPasswordContract $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
+     *
      * @return string
      */
     public function createToken(CanResetPasswordContract $user)
@@ -256,6 +266,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Delete the given password reset token.
      *
      * @param  string  $token
+     *
      * @return void
      */
     public function deleteToken($token)
@@ -266,8 +277,9 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Validate the given password reset token.
      *
-     * @param  CanResetPasswordContract $user
-     * @param  string $token
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param  string                                      $token
+     *
      * @return bool
      */
     public function tokenExists(CanResetPasswordContract $user, $token)

@@ -107,6 +107,7 @@ class PasswordBrokerManager implements FactoryContract
      * Get the password broker configuration.
      *
      * @param  string  $name
+     *
      * @return array
      */
     protected function getConfig($name)
@@ -128,6 +129,7 @@ class PasswordBrokerManager implements FactoryContract
      * Set the default password broker name.
      *
      * @param  string  $name
+     *
      * @return void
      */
     public function setDefaultDriver($name)
@@ -140,6 +142,7 @@ class PasswordBrokerManager implements FactoryContract
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

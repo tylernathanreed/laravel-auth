@@ -298,8 +298,8 @@ trait ResetsPasswords
     /**
      * Reset the given user's password.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
-     * @param  string                                 $password
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string                                       $password
      *
      * @return void
      */

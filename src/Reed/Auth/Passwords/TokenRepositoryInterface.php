@@ -2,14 +2,15 @@
 
 namespace Reed\Auth\Passwords;
 
-use Reed\Auth\Contracts\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 interface TokenRepositoryInterface
 {
     /**
      * Create a new token.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return string
      */
     public function create(CanResetPasswordContract $user);
@@ -17,8 +18,9 @@ interface TokenRepositoryInterface
     /**
      * Determine if a token record exists and is valid.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
-     * @param  string  $token
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string                                       $token
+     *
      * @return bool
      */
     public function exists(CanResetPasswordContract $user, $token);
@@ -27,6 +29,7 @@ interface TokenRepositoryInterface
      * Delete a token record.
      *
      * @param  string  $token
+     *
      * @return void
      */
     public function delete($token);

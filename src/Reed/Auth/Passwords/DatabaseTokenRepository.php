@@ -5,7 +5,7 @@ namespace Reed\Auth\Passwords;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\ConnectionInterface;
-use Reed\Auth\Contracts\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class DatabaseTokenRepository implements TokenRepositoryInterface
 {
@@ -41,23 +41,25 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      * Create a new token repository instance.
      *
      * @param  \Illuminate\Database\ConnectionInterface  $connection
-     * @param  string  $table
-     * @param  string  $hashKey
-     * @param  int  $expires
+     * @param  string                                    $table
+     * @param  string                                    $hashKey
+     * @param  int                                       $expires
+     *
      * @return void
      */
     public function __construct(ConnectionInterface $connection, $table, $hashKey, $expires = 60)
     {
-        $this->table = $table;
-        $this->hashKey = $hashKey;
-        $this->expires = $expires * 60;
+        $this->table      = $table;
+        $this->hashKey    = $hashKey;
+        $this->expires    = $expires * 60;
         $this->connection = $connection;
     }
 
     /**
      * Create a new token record.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return string
      */
     public function create(CanResetPasswordContract $user)
@@ -79,7 +81,8 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Delete all existing reset tokens from the database.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return int
      */
     protected function deleteExisting(CanResetPasswordContract $user)
@@ -92,6 +95,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      *
      * @param  string  $email
      * @param  string  $token
+     *
      * @return array
      */
     protected function getPayload($email, $token)
@@ -102,8 +106,9 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Determine if a token record exists and is valid.
      *
-     * @param  \Reed\Auth\Contracts\CanResetPassword  $user
-     * @param  string  $token
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string                                       $token
+     *
      * @return bool
      */
     public function exists(CanResetPasswordContract $user, $token)
@@ -119,6 +124,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      * Determine if the token has expired.
      *
      * @param  array  $token
+     *
      * @return bool
      */
     protected function tokenExpired($token)
@@ -132,6 +138,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      * Delete a token record by token.
      *
      * @param  string  $token
+     *
      * @return void
      */
     public function delete($token)
