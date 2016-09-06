@@ -4,7 +4,7 @@ namespace Reed\Auth\Passwords;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Contracts\Auth\PasswordBrokerFactory as FactoryContract;
+use Reed\Auth\Contracts\PasswordBrokerFactory as FactoryContract;
 
 class PasswordBrokerManager implements FactoryContract
 {
@@ -26,6 +26,7 @@ class PasswordBrokerManager implements FactoryContract
      * Create a new PasswordBroker manager instance.
      *
      * @param  \Illuminate\Foundation\Application  $app
+     *
      * @return void
      */
     public function __construct($app)
@@ -37,7 +38,8 @@ class PasswordBrokerManager implements FactoryContract
      * Attempt to get the broker from the local cache.
      *
      * @param  string  $name
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     *
+     * @return \Reed\Auth\Contracts\PasswordBroker
      */
     public function broker($name = null)
     {
@@ -52,7 +54,8 @@ class PasswordBrokerManager implements FactoryContract
      * Resolve the given broker.
      *
      * @param  string  $name
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     *
+     * @return \Reed\Auth\Contracts\PasswordBroker
      *
      * @throws \InvalidArgumentException
      */
@@ -79,6 +82,7 @@ class PasswordBrokerManager implements FactoryContract
      * Create a token repository instance based on the given configuration.
      *
      * @param  array  $config
+     *
      * @return \Reed\Auth\Passwords\TokenRepositoryInterface
      */
     protected function createTokenRepository(array $config)
