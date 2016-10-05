@@ -38,10 +38,11 @@ class TokenGuard implements Guard
      *
      * @param  \Reed\Auth\Contracts\UserProvider  $provider
      * @param  \Illuminate\Http\Request           $request
+     * @param  array                              $config
      *
      * @return void
      */
-    public function __construct(UserProvider $provider, Request $request, $config)
+    public function __construct(UserProvider $provider, Request $request, array $config = [])
     {
         $this->request = $request;
         $this->provider = $provider;
