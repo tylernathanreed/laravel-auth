@@ -33,7 +33,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     public function testUserIsRetrievedByCredentials()
     {
         $broker = $this->getBroker($mocks = $this->getMocks());
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(['foo'])->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(['foo'])->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
 
         $this->assertEquals($user, $broker->getUser(['foo']));
     }
@@ -42,7 +42,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         $mocks = $this->getMocks();
         $broker = $this->getMock('Reed\Auth\Passwords\PasswordBroker', ['emailResetLink', 'getUri'], array_values($mocks));
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(['foo'])->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(['foo'])->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
         $mocks['tokens']->shouldReceive('create')->once()->with($user)->andReturn('token');
         $callback = function () {
         };
@@ -58,7 +58,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
         $callback = function ($message, $user) {
             $_SERVER['__password.reset.test'] = true;
         };
-        $user = m::mock('Reed\Auth\Contracts\CanResetPassword');
+        $user = m::mock('Illuminate\Contracts\Auth\CanResetPassword');
         $mocks['mailer']->shouldReceive('send')->once()->with('resetLinkView', ['token' => 'token', 'user' => $user], m::type('Closure'))->andReturnUsing(function ($view, $data, $callback) {
             return $callback;
         });
@@ -84,7 +84,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         $creds = ['password' => 'foo', 'password_confirmation' => 'bar'];
         $broker = $this->getBroker($mocks = $this->getMocks());
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
 
         $this->assertEquals(PasswordBroker::INVALID_PASSWORD, $broker->reset($creds, function () {
         }));
@@ -94,7 +94,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         $creds = ['password' => null, 'password_confirmation' => null];
         $broker = $this->getBroker($mocks = $this->getMocks());
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
 
         $this->assertEquals(PasswordBroker::INVALID_PASSWORD, $broker->reset($creds, function () {
         }));
@@ -104,7 +104,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         $creds = ['password' => 'abc', 'password_confirmation' => 'abc'];
         $broker = $this->getBroker($mocks = $this->getMocks());
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
 
         $this->assertEquals(PasswordBroker::INVALID_PASSWORD, $broker->reset($creds, function () {
         }));
@@ -117,7 +117,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
         $broker->validator(function ($credentials) {
             return strlen($credentials['password']) >= 7;
         });
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with($creds)->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
 
         $this->assertEquals(PasswordBroker::INVALID_PASSWORD, $broker->reset($creds, function () {
         }));
@@ -127,7 +127,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         $creds = ['token' => 'token'];
         $broker = $this->getMock('Reed\Auth\Passwords\PasswordBroker', ['validateNewPassword'], array_values($mocks = $this->getMocks()));
-        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(array_except($creds, ['token']))->andReturn($user = m::mock('Reed\Auth\Contracts\CanResetPassword'));
+        $mocks['users']->shouldReceive('retrieveByCredentials')->once()->with(array_except($creds, ['token']))->andReturn($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword'));
         $broker->expects($this->once())->method('validateNewPassword')->will($this->returnValue(true));
         $mocks['tokens']->shouldReceive('exists')->with($user, 'token')->andReturn(false);
 
@@ -139,7 +139,7 @@ class AuthPasswordBrokerTest extends PHPUnit_Framework_TestCase
     {
         unset($_SERVER['__password.reset.test']);
         $broker = $this->getMock('Reed\Auth\Passwords\PasswordBroker', ['validateReset', 'getPassword', 'getToken'], array_values($mocks = $this->getMocks()));
-        $broker->expects($this->once())->method('validateReset')->will($this->returnValue($user = m::mock('Reed\Auth\Contracts\CanResetPassword')));
+        $broker->expects($this->once())->method('validateReset')->will($this->returnValue($user = m::mock('Illuminate\Contracts\Auth\CanResetPassword')));
         $mocks['tokens']->shouldReceive('delete')->once()->with('token');
         $callback = function ($user, $password) {
             $_SERVER['__password.reset.test'] = compact('user', 'password');
