@@ -2,7 +2,9 @@
 
 namespace Reed\Auth;
 
-use Reed\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Reed\Auth\Contracts\Guard;
 use Reed\Auth\Contracts\UserProvider;
 
@@ -13,7 +15,7 @@ class TokenGuard implements Guard
     /**
      * The request instance.
      *
-     * @var \Reed\Http\Request
+     * @var \Illuminate\Http\Request
      */
     protected $request;
 
@@ -35,15 +37,16 @@ class TokenGuard implements Guard
      * Create a new authentication guard.
      *
      * @param  \Reed\Auth\Contracts\UserProvider  $provider
-     * @param  \Reed\Http\Request  $request
+     * @param  \Illuminate\Http\Request           $request
+     *
      * @return void
      */
-    public function __construct(UserProvider $provider, Request $request)
+    public function __construct(UserProvider $provider, Request $request, $config)
     {
         $this->request = $request;
         $this->provider = $provider;
-        $this->inputKey = 'api_token';
-        $this->storageKey = 'api_token';
+        $this->inputKey = Arr::get($config, 'input_key_name', 'api_token');
+        $this->storageKey = Arr::get($config, 'storage_key_name', 'api_token');
     }
 
     /**
@@ -83,7 +86,7 @@ class TokenGuard implements Guard
         $token = $this->request->input($this->inputKey);
 
         if (empty($token)) {
-            $token = $this->request->bearerToken();
+            $token = $this->getBearerTokenFromRequest($this->request);
         }
 
         if (empty($token)) {
@@ -121,5 +124,14 @@ class TokenGuard implements Guard
         $this->request = $request;
 
         return $this;
+    }
+
+    protected function getBearerTokenFromRequest(Request $request)
+    {
+        $header = $request->header('Authorization', '');
+
+        if (Str::startsWith($header, 'Bearer ')) {
+            return Str::substr($header, 7);
+        }
     }
 }
