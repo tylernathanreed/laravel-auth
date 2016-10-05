@@ -2,7 +2,9 @@
 
 namespace Reed\Auth\Contracts\Access;
 
-interface Gate
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+
+interface Gate extends GateContract
 {
     /**
      * Determine if a given ability has been defined.
