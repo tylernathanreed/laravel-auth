@@ -2,9 +2,9 @@
 
 namespace Reed\Auth\Access;
 
-use Exception;
+use Illuminate\Auth\Access\UnauthorizedException;
 
-class AuthorizationException extends Exception
+class AuthorizationException extends UnauthorizedException
 {
     //
 }
