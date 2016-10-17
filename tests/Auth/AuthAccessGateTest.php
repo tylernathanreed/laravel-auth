@@ -23,6 +23,7 @@ class GateTest extends PHPUnit_Framework_TestCase
         $gate->define('foo', function ($user) {
             return true;
         });
+
         $gate->define('bar', function ($user) {
             return false;
         });
@@ -38,6 +39,7 @@ class GateTest extends PHPUnit_Framework_TestCase
         $gate->define('foo', function ($user) {
             return true;
         });
+
         $gate->before(function ($user, $ability) {
             $this->assertEquals('foo', $ability);
 
@@ -54,6 +56,7 @@ class GateTest extends PHPUnit_Framework_TestCase
         $gate->define('foo', function ($user) {
             return true;
         });
+
         $gate->before(function () {
         });
 
@@ -67,6 +70,7 @@ class GateTest extends PHPUnit_Framework_TestCase
         $gate->define('foo', function ($user) {
             return true;
         });
+
         $gate->define('bar', function ($user) {
             return false;
         });
