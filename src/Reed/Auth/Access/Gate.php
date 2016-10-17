@@ -316,7 +316,7 @@ class Gate implements GateContract
      */
     protected function resolveAuthCallback($user, $ability, array $arguments)
     {
-        if ($this->firstArgumentCorrespondsToPolicy($arguments)) {
+        if ($this->usesPolicyCallback($ability, $arguments)) {
             return $this->resolvePolicyCallback($user, $ability, $arguments);
         } elseif (isset($this->abilities[$ability])) {
             return $this->abilities[$ability];
@@ -325,6 +325,28 @@ class Gate implements GateContract
                 return false;
             };
         }
+    }
+
+    /**
+     * Returns whether or not the given Ability and Arguments uses a Policy Callback.
+     *
+     * @param  string  $ability
+     * @param  array   $arguments
+     *
+     * @return boolean
+     */
+    protected function usesPolicyCallback($ability, array $arguments)
+    {
+        // Make sure the Arguments Correspond to a Policy
+        if(!$this->firstArgumentCorrespondsToPolicy($arguments))
+            return false;
+
+        // Make sure the Policy has the Ability
+        if(!$this->policyHasAbility($ability, $arguments))
+            return false;
+
+        // Uses Policy Callback
+        return true;
     }
 
     /**
@@ -344,6 +366,31 @@ class Gate implements GateContract
         }
 
         return is_string($arguments[0]) && isset($this->policies[$arguments[0]]);
+    }
+
+    /**
+     * Returns whether or not the Policy derived from the given Arguments has the given Ability.
+     *
+     * @param  string  $ability
+     * @param  array   $arguments
+     *
+     * @return boolean
+     */
+    protected function policyHasAbility($ability, array $arguments)
+    {
+        // Make sure the First Argument is set
+        if(!isset($arguments[0]))
+            return false;
+
+        // Determine the Policy from the First Argument
+        $policy = $this->getPolicyFor($arguments[0]);
+
+        // Make sure a Policy was Found
+        if(is_null($policy))
+            return false;
+
+        // Return whether or not the Ability is Callable
+        return is_callable([$policy, $ability]);
     }
 
     /**
