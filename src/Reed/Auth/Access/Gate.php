@@ -387,6 +387,10 @@ class Gate implements GateContract
         if(is_null($policy))
             return false;
 
+        // Convert Spinal Case to Camel Case
+        if(strpos($ability, '-') !== false)
+            $ability = Str::camel($ability);
+
         // Return whether or not the Ability is Callable
         return is_callable([$policy, $ability]);
     }
