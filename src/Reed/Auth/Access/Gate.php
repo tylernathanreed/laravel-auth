@@ -264,7 +264,7 @@ class Gate implements GateContract
             $user, $ability, $arguments
         );
 
-        $callback($user, ...$arguments);
+        return $callback($user, ...$arguments);
     }
 
     /**
