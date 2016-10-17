@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": ">=5.6.4",
+        "illuminate/auth": "5.1.*",
         "illuminate/container": "5.1.*",
         "illuminate/contracts": "5.1.*",
         "illuminate/cookie": "5.1.*",
