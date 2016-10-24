@@ -355,15 +355,20 @@ class Gate implements GateContract
      */
     protected function firstArgumentCorrespondsToPolicy(array $arguments)
     {
-        if (! isset($arguments[0])) {
+        // Make sure the First Argument is set
+        if(!isset($arguments[0]))
             return false;
-        }
 
-        if (is_object($arguments[0])) {
+        // Check for Argument-as-Object
+        if(is_object($arguments[0]))
             return isset($this->policies[get_class($arguments[0])]);
-        }
 
-        return is_string($arguments[0]) && isset($this->policies[$arguments[0]]);
+        // Check for Argument-as-Class
+        if(is_string($arguments[0]))
+            return isset($this->policies[$arguments[0]]);
+
+        // Return False
+        return false;
     }
 
     /**
