@@ -2,6 +2,8 @@
 
 namespace Reed\Auth\Passwords;
 
+use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Reed\Auth\Contracts\PasswordBrokerFactory as FactoryContract;
@@ -21,6 +23,13 @@ class PasswordBrokerManager implements FactoryContract
      * @var array
      */
     protected $brokers = [];
+
+    /**
+     * The registered custom driver creators.
+     *
+     * @var array
+     */
+    protected $customCreators = [];
 
     /**
      * Create a new PasswordBroker manager instance.
@@ -61,12 +70,54 @@ class PasswordBrokerManager implements FactoryContract
      */
     protected function resolve($name)
     {
+        // Determine the Driver Configuration
         $config = $this->getConfig($name);
 
-        if (is_null($config)) {
+        // Make sure the Driver is Configured
+        if(is_null($config))
             throw new InvalidArgumentException("Password resetter [{$name}] is not defined.");
-        }
 
+        // Determine the Driver
+        $driver = Arr::get($config, 'driver', 'laravel');
+
+        // Check for a Custom Creator
+        if(isset($this->customCreators[$driver]))
+            return $this->callCustomCreator($name, $config);
+
+        // Determine the Driver Method
+        $driverMethod = 'create' . ucfirst($driver) . 'Driver';
+
+        // Call the Driver Creator
+        if(method_exists($this, $driverMethod))
+            return $this->{$driverMethod}($name, $config);
+
+        // Driver Not Defined
+        throw new InvalidArgumentException("Password resetter driver [{$name}] is not defined.");
+    }
+
+    /**
+     * Call a custom driver creator.
+     *
+     * @param  string  $name
+     * @param  array   $config
+     *
+     * @return mixed
+     */
+    protected function callCustomCreator($name, array $config)
+    {
+        return $this->customCreators[$config['driver']]($this->app, $name, $config);
+    }
+
+    /**
+     * Create a session based authentication guard.
+     *
+     * @param  string  $name
+     * @param  array  $config
+     *
+     * @return \Reed\Auth\Passwords\PasswordBroker
+     */
+    protected function createLaravelDriver($name, array $config)
+    {
         // The password broker uses a token repository to validate tokens and send user
         // password e-mails, as well as validating that password reset process as an
         // aggregate service of sorts providing a convenient interface for resets.
@@ -135,6 +186,21 @@ class PasswordBrokerManager implements FactoryContract
     public function setDefaultDriver($name)
     {
         $this->app['config']['auth.defaults.passwords'] = $name;
+    }
+
+    /**
+     * Register a custom driver creator Closure.
+     *
+     * @param  string  $driver
+     * @param  \Closure  $callback
+     *
+     * @return $this
+     */
+    public function extend($driver, Closure $callback)
+    {
+        $this->customCreators[$driver] = $callback;
+
+        return $this;
     }
 
     /**
