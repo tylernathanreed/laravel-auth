@@ -59,7 +59,8 @@ class AuthManager implements FactoryContract
      * Attempt to get the guard from the local cache.
      *
      * @param  string  $name
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
      */
     public function guard($name = null)
     {
@@ -68,6 +69,18 @@ class AuthManager implements FactoryContract
         return isset($this->guards[$name])
                     ? $this->guards[$name]
                     : $this->guards[$name] = $this->resolve($name);
+    }
+
+    /**
+     * Alias for $this->guard($name) for Legacy 5.1 Support.
+     *
+     * @param  string  $name
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function driver($name = null)
+    {
+        return $this->guard($name);
     }
 
     /**
