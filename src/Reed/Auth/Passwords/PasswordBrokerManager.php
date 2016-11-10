@@ -92,7 +92,7 @@ class PasswordBrokerManager implements FactoryContract
             return $this->{$driverMethod}($name, $config);
 
         // Driver Not Defined
-        throw new InvalidArgumentException("Password resetter driver [{$name}] is not defined.");
+        throw new InvalidArgumentException("Password resetter driver [{$driver}] is not defined.");
     }
 
     /**
