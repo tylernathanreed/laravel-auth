@@ -109,7 +109,7 @@ class PasswordBrokerManager implements FactoryContract
     }
 
     /**
-     * Create a session based authentication guard.
+     * Creates the Laravel 5.2 Password Broker.
      *
      * @param  string  $name
      * @param  array  $config
@@ -126,6 +126,22 @@ class PasswordBrokerManager implements FactoryContract
             $this->app['auth']->createUserProvider($config['provider']),
             $this->app['mailer'],
             $config['email']
+        );
+    }
+
+    /**
+     * Creates the Laravel 5.3 Password Broker.
+     *
+     * @param  string  $name
+     * @param  array  $config
+     *
+     * @return \Reed\Auth\Passwords\PasswordBroker
+     */
+    protected function createLaravel53Driver($name, array $config)
+    {
+        return new PasswordBroker53(
+            $this->createTokenRepository($config),
+            $this->app['auth']->createUserProvider($config['provider'])
         );
     }
 
