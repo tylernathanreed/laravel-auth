@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use UnexpectedValueException;
 use Reed\Auth\Contracts\UserProvider;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
-use Reed\Auth\Contracts\PasswordBroker as PasswordBrokerContract;
+use Reed\Auth\Contracts\PasswordBroker51 as PasswordBrokerContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class PasswordBroker implements PasswordBrokerContract
