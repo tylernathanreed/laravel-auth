@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Arr;
 use UnexpectedValueException;
 use Reed\Auth\Contracts\UserProvider;
-use Reed\Auth\Contracts\PasswordBroker as PasswordBrokerContract;
+use Reed\Auth\Contracts\PasswordBroker53 as PasswordBrokerContract;
 use Reed\Auth\Contracts\CanResetPassword as CanResetPasswordContract;
 
 class PasswordBroker53 implements PasswordBrokerContract
