@@ -2,14 +2,9 @@
 
 namespace Reed\Auth\Contracts\Access;
 
-interface Authorizable
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+
+interface Authorizable extends AuthorizableContract
 {
-    /**
-     * Determine if the entity has a given ability.
-     *
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function can($ability, $arguments = []);
+
 }
