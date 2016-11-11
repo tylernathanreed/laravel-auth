@@ -2,7 +2,7 @@
 
 namespace Reed\Auth\Contracts;
 
-use Illuminate\Contacts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 interface CanResetPassword extends CanResetPasswordContract
 {
