@@ -6,6 +6,8 @@
 This is a mostly drop-in replacement for Laravel 5.2's Multi-Auth for Laravel 5.1.
 Most of the source core for this project comes from Laravel 5.2, and is just refactored to work with 5.1.
 
+***Deprecation Notice:*** With the final end of Laravel 5.1 being behind us, I am marking this package as abandoned. By now, everyone should be using Laravel 5.5 or greater. While I may still provide periodic updates, I am no longer officially maintaining this package.
+
 ## Installation
 ### Composer
 Require this package with composer:
